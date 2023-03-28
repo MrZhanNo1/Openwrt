@@ -1,31 +1,31 @@
-          name: Mrzhan-X86  #设备名请用大写字母
+name: Mrzhan-X86  #设备名请用大写字母
 
-          on:
-          schedule:
-         - cron: 0 22 * * 0
+on:
+  schedule:
+    - cron: 0 22 * * 0
 
-         workflow_dispatch:
+  workflow_dispatch:
 
-         env:
-         DEVICE_NAME: X86  #设备名请用大写字母
-         DEVICE_IP: 192.168.125.12  #设备默认登陆地址
-         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-         CORE_VER: https://raw.githubusercontent.com/vernesong/OpenClash/core/dev/core_version
-         CORE_TUN: https://github.com/vernesong/OpenClash/raw/core/dev/premium/clash-linux-amd64
-         CORE_DEV: https://github.com/vernesong/OpenClash/raw/core/dev/dev/clash-linux-amd64.tar.gz
-         CORE_MATE: https://github.com/vernesong/OpenClash/raw/core/dev/meta/clash-linux-amd64.tar.gz
+env:
+  DEVICE_NAME: X86  #设备名请用大写字母
+  DEVICE_IP: 192.168.125.12  #设备默认登陆地址
+  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  CORE_VER: https://raw.githubusercontent.com/vernesong/OpenClash/core/dev/core_version
+  CORE_TUN: https://github.com/vernesong/OpenClash/raw/core/dev/premium/clash-linux-amd64
+  CORE_DEV: https://github.com/vernesong/OpenClash/raw/core/dev/dev/clash-linux-amd64.tar.gz
+  CORE_MATE: https://github.com/vernesong/OpenClash/raw/core/dev/meta/clash-linux-amd64.tar.gz
 
-         permissions: write-all
+permissions: write-all
 
-         jobs:
-         build_openwrt:
-         name: Build Firmware
-         runs-on: ubuntu-latest
-         steps:
-         - name: Initialization Environment
-         env:
+jobs:
+  build_openwrt:
+    name: Build Firmware
+    runs-on: ubuntu-latest
+    steps:
+      - name: Initialization Environment
+        env:
           DEBIAN_FRONTEND: noninteractive
-         run: |
+        run: |
           docker rmi `docker images -q`
           sudo -E rm -rf /etc/apt/sources.list.d /etc/mysql /etc/php /opt/ghc /usr/local/lib/android /usr/share/dotnet
           sudo -E apt -yqq update

@@ -22,10 +22,10 @@ jobs:
     name: Build Firmware
     runs-on: ubuntu-latest
     steps: 
-      - name: Initialization Environment
-        env:
+       - name: Initialization Environment
+         env:
           DEBIAN_FRONTEND: noninteractive
-        run: |
+         run: |
           docker rmi `docker images -q`
           sudo -E rm -rf /etc/apt/sources.list.d /etc/mysql /etc/php /opt/ghc /usr/local/lib/android /usr/share/dotnet
           sudo -E apt -yqq update
@@ -39,10 +39,11 @@ jobs:
           sudo -E timedatectl set-timezone "Asia/Shanghai"
           
        - name: Clone LEDE Code
-        run: |
+         run: |
           git clone --depth=1 --single-branch https://github.com/coolsnowwolf/lede.git
-      - name: Update Plugins
-        run: |
+          
+       - name: Update Plugins
+         run: |
           cd ./lede/package
          
           #PassWall
@@ -75,13 +76,13 @@ jobs:
           tar -zxf ./dev.tar.gz
           chmod +x ./clash*
           rm -rf ./*.gz
-      - name: Update Feeds
-        run: |
+       - name: Update Feeds
+         run: |
           cd ./lede
           ./scripts/feeds update -a
           ./scripts/feeds install -a
-      - name: Update Settings
-        run: |
+       - name: Update Settings
+         run: |
           cd ./lede
           #默认主机名
           sed -i "s/OpenWrt/OpenWRT-$DEVICE_NAME/g" ./package/base-files/files/bin/config_generate
@@ -91,8 +92,8 @@ jobs:
           sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' ./feeds/luci/collections/luci/Makefile
           #默认时间格式
           sed -i 's/os.date()/os.date("%Y-%m-%d %H:%M:%S %A")/g' $(find ./package/lean/autocore/files/ -type f -name "index.htm")
-      - name: Custom Settings
-        run: |
+       - name: Custom Settings
+         run: |
           cd ./lede
           rm -rf ./tmp && rm -rf ./.config*
           cat >> .config <<EOF
@@ -134,12 +135,12 @@ jobs:
           CONFIG_PACKAGE_luci-app-accesscontrol=n
           EOF
           make defconfig
-      - name: Download Packages
-        run: |
+       - name: Download Packages
+         run: |
           cd ./lede
           make download -j16
-      - name: Compile Firmware
-        run: |
+       - name: Compile Firmware
+         run: |
           cd ./lede
           make -j$(nproc) || make -j1 V=s
           echo "======================="
@@ -149,8 +150,8 @@ jobs:
           echo "======================="
           du -h --max-depth=1 ./bin
           echo "======================="
-      - name: Package Firmware
-        run: |
+       - name: Package Firmware
+         run: |
           export BUILD_DATE=$(TZ=UTC-8 date +"%y.%m.%d_%H.%M.%S")
           echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
           echo "DEVICE_NAME=$DEVICE_NAME" >> $GITHUB_ENV
@@ -160,23 +161,23 @@ jobs:
           cp -rf ./.config ./bin/targets/config.txt
           cd ./bin/targets
           zip -qm ./"$DEVICE_NAME"_Firmware_"$BUILD_DATE".zip ./*.*
-      - name: Release Firmware
-        uses: softprops/action-gh-release@v1
-        with:
+       - name: Release Firmware
+         uses: softprops/action-gh-release@v1
+         with:
           tag_name: ${{env.DEVICE_NAME}}_Firmware_${{env.BUILD_DATE}}
           files: ./lede/bin/targets/*.zip
           body: |
             不要问，更就完事了！
             地址：$DEVICE_IP
             密码：password
-      - name: Delete Old Releases
-        uses: dev-drprasad/delete-older-releases@v0.2.1
-        with:
+       - name: Delete Old Releases
+         uses: dev-drprasad/delete-older-releases@v0.2.1
+         with:
           keep_latest: 6
           delete_tags: true
 
-      - name: Delete Old Workflows
-        uses: Mattraks/delete-workflow-runs@v2
-        with:
+       - name: Delete Old Workflows
+         uses: Mattraks/delete-workflow-runs@v2
+         with:
           retain_days: 1
           keep_minimum_runs: 3

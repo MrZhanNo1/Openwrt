@@ -49,7 +49,18 @@ jobs:
           cd ./lede/package
 
           #第三方插件源
-          git clone --depth=1 --single-branch $PLUG_URL
+              #NAS Packages
+          git clone --depth=1 --single-branch https://github.com/linkease/nas-packages.git
+          #NAS Packages LUCI
+          git clone --depth=1 --single-branch https://github.com/linkease/nas-packages-luci.git
+          #iStore
+          git clone --depth=1 --single-branch https://github.com/linkease/istore.git
+          #Design Theme
+          git clone --depth=1 --single-branch https://github.com/gngpp/luci-theme-design.git
+          #Design Config
+          git clone --depth=1 --single-branch https://github.com/gngpp/luci-app-design-config.git
+          #OpenClash
+          git clone --depth=1 --single-branch --branch "dev" https://github.com/vernesong/OpenClash.git
 
           #OpenClash Core
           cd ./small-package/luci-app-openclash/root/etc/openclash

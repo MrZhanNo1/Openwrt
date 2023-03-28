@@ -21,7 +21,7 @@ jobs:
   build_openwrt:
     name: Build Firmware
     runs-on: ubuntu-latest
-    steps:
+    steps: 
       - name: Initialization Environment
         env:
           DEBIAN_FRONTEND: noninteractive

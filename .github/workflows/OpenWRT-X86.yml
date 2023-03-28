@@ -46,7 +46,7 @@ jobs:
          run: |
           cd ./lede/package
          
-          PassWall
+          #PassWall
           git clone --depth=1 --single-branch https://github.com/xiaorouji/openwrt-passwall.git
           #git clone --depth=1 --single-branch --branch "luci" https://github.com/xiaorouji/openwrt-passwall.git
           

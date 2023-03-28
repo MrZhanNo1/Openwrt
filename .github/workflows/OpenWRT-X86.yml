@@ -57,9 +57,9 @@ jobs:
            #iStore
            git clone --depth=1 --single-branch https://github.com/linkease/istore.git
            #Design Theme
-           git clone --depth=1 --single-branch https://github.com/gngpp/luci-theme-design.git
+           #git clone --depth=1 --single-branch https://github.com/gngpp/luci-theme-design.git
            #Design Config
-           git clone --depth=1 --single-branch https://github.com/gngpp/luci-app-design-config.git
+           #git clone --depth=1 --single-branch https://github.com/gngpp/luci-app-design-config.git
            #OpenClash
            git clone --depth=1 --single-branch --branch "dev" https://github.com/vernesong/OpenClash.git
            #Argon Theme

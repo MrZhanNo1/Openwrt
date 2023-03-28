@@ -46,8 +46,8 @@ jobs:
          run: |
           cd ./lede/package
          
-          #PassWall
-          #git clone --depth=1 --single-branch https://github.com/xiaorouji/openwrt-passwall.git
+          PassWall
+          git clone --depth=1 --single-branch https://github.com/xiaorouji/openwrt-passwall.git
           #git clone --depth=1 --single-branch --branch "luci" https://github.com/xiaorouji/openwrt-passwall.git
           
           #NAS Packages
@@ -62,6 +62,10 @@ jobs:
           git clone --depth=1 --single-branch https://github.com/gngpp/luci-app-design-config.git
           #OpenClash
           git clone --depth=1 --single-branch --branch "dev" https://github.com/vernesong/OpenClash.git
+          #Argon Theme
+          git clone --depth=1 --single-branch --branch "18.06" https://github.com/jerrykuku/luci-theme-argon.git
+          #Argon Config
+          git clone --depth=1 --single-branch https://github.com/jerrykuku/luci-app-argon-config.git
           #OpenClash Core
           cd ./OpenClash/luci-app-openclash/root/etc/openclash
           mkdir ./core && cd ./core
@@ -123,9 +127,7 @@ jobs:
           CONFIG_PACKAGE_luci-app-store=y
           CONFIG_PACKAGE_luci-app-dockerman=y
           CONFIG_PACKAGE_luci-app-wrtbwmon=y
-          
-          #CONFIG_PACKAGE_luci-app-passwall=y
-          
+          CONFIG_PACKAGE_luci-app-passwall=y
           #删除插件
           CONFIG_PACKAGE_luci-app-vsftpd=n
           CONFIG_PACKAGE_luci-app-xlnetacc=n

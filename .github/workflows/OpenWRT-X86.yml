@@ -168,7 +168,7 @@ jobs:
           files: ./lede/bin/targets/*.zip
           body: |
             集成argon主题，iStore商店，passwall，可玩性极高极度精简
-            地址：$192.168.125.12 #因为自己测试，所以自己改回去就好
+            地址：192.168.125.12 #因为自己测试，所以自己改回去就好
             密码：password
        - name: Delete Old Releases
          uses: dev-drprasad/delete-older-releases@v0.2.1

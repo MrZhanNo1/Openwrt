@@ -157,7 +157,7 @@ jobs:
           echo "DEVICE_NAME=$DEVICE_NAME" >> $GITHUB_ENV
           cd ./lede
           rm -rf $(find ./bin/targets/ -type f -iname "*.manifest" -or -type d -iname "packages")
-          cp -rf $(find ./bin/targets/ -type f -iname "*$DEVICE_NAME*.*") ./bin/targets/
+          cp -rf $(find ./bin/targets/ -type f -iname "*.*") ./bin/targets/
           cp -rf ./.config ./bin/targets/config.txt
           cd ./bin/targets
           zip -qm ./"$DEVICE_NAME"_Firmware_"$BUILD_DATE".zip ./*.*

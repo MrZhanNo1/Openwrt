@@ -152,17 +152,12 @@ jobs:
           echo "======================="
        - name: Package Firmware
          run: |
-          export BUILD_DATE=$(TZ=UTC-8 date +"%y.%m.%d_%H.%M.%S")
-          echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
-          echo "OWRT_NAME=$OWRT_NAME" >> $GITHUB_ENV
-          echo "OWRT_IP=$OWRT_IP" >> $GITHUB_ENV
-          
           cd ./lede
           rm -rf $(find ./bin/targets/ -type f -iname "*.manifest" -or -type d -iname "packages")
-          cp -rf $(find ./bin/targets/ -type f -iname "*$OWRT_NAME*.*") ./bin/targets/
+          cp -rf $(find ./bin/targets/ -type f -iname "*.*") ./bin/targets/
           cp -rf ./.config ./bin/targets/config.txt
           cd ./bin/targets
-          zip -qm ./"$OWRT_NAME"_Firmware_"$BUILD_DATE".zip ./*.*
+          zip -qr Firmware.zip ./*.*
 
        - name: Release Firmware
          uses: softprops/action-gh-release@v1

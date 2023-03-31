@@ -159,7 +159,7 @@ jobs:
           rm -rf $(find ./bin/targets/ -type f -iname "*.manifest" -or -type d -iname "packages")
           cp -rf $(find ./bin/targets/ -type f -iname "*$DEVICE_NAME*.*") ./bin/targets/
           cp -rf ./.config ./bin/targets/config.txt
-          cd -r./bin/targets
+          cd ./bin/targets
           zip -qm ./"$DEVICE_NAME"_Firmware_"$BUILD_DATE".zip ./*.*
        - name: Release Firmware
          uses: softprops/action-gh-release@v1
